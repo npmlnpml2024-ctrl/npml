@@ -21,7 +21,7 @@
   z-index:60;
 
   display:flex;
-  margin-top:-20px;      /* 배너랑 딱 붙게 */
+  margin-top:0px;      /* 배너랑 딱 붙게 */
   width:100%;
   border:0;
   background:transparent;
@@ -58,3 +58,5 @@
     border-top:1px solid rgba(255,255,255,.35);
   }
 }
+/* About 전용: 상단 여백 제거 (공통 .wrap 24px 무시) */
+.wrap{ margin-top:0; }
