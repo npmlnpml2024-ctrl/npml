@@ -10,55 +10,56 @@
 @media (max-width:980px){ .cards-eq{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:640px){ .cards-eq{ grid-template-columns:1fr; } }
 
-/* 2) 앵커 스크롤 보정 + 하이라이트 */
+/* 2) 앵커 스크롤 보정 */
 #vision, #research, #equipment{ scroll-margin-top:96px; }
 :target .head h2{ box-shadow: inset 0 -8px 0 rgba(0,74,159,.15); }
 
-/* 3) 배너 바로 밑 subtabs (완전 투명 + hover 효과, 밑 공간 없음) */
+/* 3) 배너 밑 내부 탭바(3개 버튼 길게, 완전 투명) */
 .subtabs{
   position: sticky;
-  top:56px;              /* 상단 내비 높이 */
-  z-index:60;
+  top: 56px;
+  z-index: 60;
 
-  display:flex;
-  margin-top:0px;      /* 배너랑 딱 붙게 */
-  width:100%;
-  border:0;
-  background:transparent;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+
+  margin-top: -28px;   /* 배너랑 딱 붙게 */
+  padding: 0;          /* 내부 여백 제거 */
+
+  background: transparent; /* 완전 투명 */
+  border: none;
+  box-shadow: none;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
+/* 탭 버튼(투명 기본, hover 시 색 들어옴) */
 .subtabs a{
-  flex:1; text-align:center;
-  line-height:48px;          /* 버튼 높이 조절 (padding 대신) */
-  background:transparent;    /* 완전 투명 */
-  border:0; border-radius:0; /* 네모 */
+  display:flex; align-items:center; justify-content:center;
+  padding:16px; height:52px;
   font-weight:700; color:#fff;
+  background:transparent;
+  border: none;
+  border-right:1px solid rgba(255,255,255,.3); /* 버튼 구분 선 */
   text-decoration:none;
-  transition:background .25s ease, color .25s ease;
+  transition: background .2s, color .2s;
 }
-
-.subtabs a + a{
-  border-left:1px solid rgba(255,255,255,.35); /* 칸 구분선 */
-}
+.subtabs a:last-child{ border-right:none; }
 
 .subtabs a:hover{
-  background:rgba(255,255,255,.15); /* hover 시 은은하게 */
+  background:rgba(255,255,255,.2);
+  color:#fff;
 }
-
 .subtabs a[aria-selected="true"]{
-  background:rgba(255,255,255,.2);  /* 선택된 탭 강조 */
+  background:rgba(0,74,159,.5);
   color:#fff;
 }
 
-/* 4) 모바일에서는 세로 스택 */
+/* 반응형 */
 @media (max-width:700px){
-  .subtabs{ flex-direction:column; }
-  .subtabs a + a{
-    border-left:0;
-    border-top:1px solid rgba(255,255,255,.35);
-  }
+  .subtabs{ grid-template-columns:1fr; }
+  .subtabs a{ border-right:none; border-bottom:1px solid rgba(255,255,255,.3); }
+  .subtabs a:last-child{ border-bottom:none; }
 }
-/* About 전용: 상단 여백 제거 (공통 .wrap 24px 무시) */
-.wrap { margin-top:0; }   /* 공통 wrap 여백 덮어쓰기 */
-.subtabs { margin-top:0; } /* 굳이 음수마진 말고 그냥 0으로 */
-
