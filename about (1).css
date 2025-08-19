@@ -1,0 +1,63 @@
+/* ==========================================================================
+   about.css — About 전용 (유틸/카드그리드/앵커보정 + 배너연결 subtabs)
+   ========================================================================== */
+
+/* 0) 유틸 */
+[hidden]{ display:none !important; }
+
+/* 1) 카드 그리드(비전/장비 공통) */
+.cards-eq{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+@media (max-width:980px){ .cards-eq{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px){ .cards-eq{ grid-template-columns:1fr; } }
+
+/* 2) 앵커 스크롤 보정 + 하이라이트 */
+#vision, #research, #equipment{ scroll-margin-top:96px; }
+:target .head h2{ box-shadow: inset 0 -8px 0 rgba(0,74,159,.15); }
+
+/* 3) 배너 밑에 subtabs */
+.subtabs{
+  position: sticky;
+  top: 56px;          /* 전역 내비 높이와 일치 */
+  z-index: 60;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 10px 14px;
+
+  /* 배너 배경 그대로 보이게 */
+  background: transparent;
+  border: 0;
+}
+
+/* 버튼: 완전 투명, 글씨만 */
+.subtabs a {
+  display:flex; align-items:center; justify-content:center;
+  gap:8px;
+  padding:14px 16px; height:48px;
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:12px;
+  font-weight:700; color:#fff;
+  background:transparent;
+  text-decoration:none;
+  transition: all .2s ease;
+}
+.subtabs a:hover {
+  background:rgba(255,255,255,.15);
+  border-color:var(--brand);
+  color:var(--brand);
+}
+.subtabs a[aria-selected="true"] {
+  background:rgba(255,255,255,.25);
+  color:var(--brand);
+  border-color:var(--brand);
+}
+
+/* 4) 반응형 */
+@media (max-width:700px){
+  .subtabs{ grid-template-columns:1fr; }
+}
+@media (max-width:640px){
+  .subtabs{ padding:8px 10px; gap:8px; }
+  .subtabs a{ padding:12px 14px; height:auto; font-weight:600; }
+}

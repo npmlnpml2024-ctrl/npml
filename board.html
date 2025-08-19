@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NPML — Board</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+KR:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- 공용 CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- 캐시 우회: HTML + 로컬 CSS만 최신으로 -->
+  <script>
+  (function(){
+    try{
+      const p=n=>String(n).padStart(2,'0');
+      const now=new Date();
+      const kr=new Date(now.getTime()+9*3600*1000); // KST
+      const ver=kr.getUTCFullYear()+p(kr.getUTCMonth()+1)+p(kr.getUTCDate())+'-'+p(kr.getUTCHours())+p(kr.getUTCMinutes())+p(kr.getUTCSeconds());
+      const url=new URL(location.href);
+      const hasV=url.searchParams.has('v');
+      const v = hasV ? url.searchParams.get('v') : ver;
+      document.querySelectorAll('link[rel="stylesheet"]').forEach(link=>{
+        const u = new URL(link.href, location.href);
+        if(u.origin === location.origin){ u.searchParams.set('v', v); link.href = u.toString(); }
+      });
+      if(!hasV){ url.searchParams.set('v', v); location.replace(url.toString()); }
+    }catch(e){ console.warn('cachebuster failed', e); }
+  })();
+  </script>
+</head>
+
+<body>
+  <!-- 상단 내비 (홈과 동일) -->
+  <div class="nav" role="navigation" aria-label="주요">
+    <div class="nav-inner">
+      <div class="brand">NPML</div>
+      <nav>
+        <a href="index.html">홈</a>
+        <a href="about.html">About</a>
+        <a href="publications.html">Publications</a>
+        <span class="nav-drop">
+          <a href="team.html" aria-haspopup="true" aria-expanded="false">Team</a>
+          <span class="menu" role="menu">
+            <a href="links.html#notices" role="menuitem">1</a>
+            <a href="links.html#gallery" role="menuitem">2</a>
+          </span>
+        </span>
+        <a href="photos.html">Photos</a>
+        <a href="contact.html">Contact
+        <a href="board.html" aria-current="page">Board</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 보드 헤더 (사이트 분위기 맞춰 심플) -->
+  <section class="hero" style="min-height:160px">
+    <div>
+      <h1>게시판</h1>
+      <p>로그인 후 글 작성 · 수정 · 삭제 · 이미지 업로드</p>
+    </div>
+  </section>
+
+  <!-- 메인 -->
+  <div class="wrap">
+    <!-- 로그인 바 -->
+    <section class="section" style="margin-bottom:18px">
+      <div class="head">
+        <h2>Account</h2>
+        <div class="actions">
+          <span id="userInfo" class="meta">로그인 안 됨</span>
+          <button id="loginBtn" class="btn" type="button">Google 로그인</button>
+          <button id="logoutBtn" class="btn" type="button" style="display:none">로그아웃</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 글쓰기 카드 (로그인 시 노출) -->
+    <section class="section" id="writeSec" style="display:none; margin-bottom:18px">
+      <div class="head">
+        <h2>Write</h2>
+      </div>
+      <div class="card" style="padding:16px">
+        <form id="postForm" class="board" style="display:grid; gap:10px">
+          <input id="title" placeholder="제목" maxlength="100" required style="border:1px solid var(--border); border-radius:12px; padding:10px" />
+          <textarea id="content" placeholder="내용" maxlength="5000" required style="border:1px solid var(--border); border-radius:12px; padding:10px; min-height:140px; resize:vertical"></textarea>
+          <div class="actions" style="justify-content:space-between">
+            <div>
+              <input id="file" type="file" accept="image/*" />
+              <span id="uploadHint" class="meta" style="margin-left:8px"></span>
+            </div>
+            <button class="btn" type="submit">등록</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 검색/정렬 -->
+    <section class="section" style="margin-bottom:18px">
+      <div class="head">
+        <h2>Browse</h2>
+        <div class="actions">
+          <input id="q" placeholder="검색(제목/내용, 현재 로드된 글에서 필터)" style="border:1px solid var(--border); border-radius:12px; padding:8px 10px; width:220px" />
+          <select id="sort" aria-label="정렬" style="border:1px solid var(--border); border-radius:12px; padding:8px 10px">
+            <option value="desc">최신순</option>
+            <option value="asc">오래된순</option>
+          </select>
+          <button id="onlyMine" class="btn" type="button" aria-pressed="false" title="내 글만 토글">내 글만</button>
+          <button id="onlyWithImg" class="btn" type="button" aria-pressed="false" title="이미지 포함만 토글">이미지</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 목록 -->
+    <section class="section">
+      <div class="head" style="margin-bottom:10px">
+        <h2>Posts</h2>
+        <div class="actions">
+          <button id="moreBtn" class="btn" type="button" style="display:none">더 보기</button>
+        </div>
+      </div>
+      <div id="list"></div>
+    </section>
+  </div>
+
+  <!-- Footer (홈과 동일) -->
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-top">
+        <div class="foot-links">
+          <a href="#">개인정보처리방침</a>
+          <a href="#">이메일무단수집거부</a>
+          <a href="#">CONTACT US</a>
+        </div>
+        <div style="font-family:Montserrat,sans-serif;font-weight:700">NPML</div>
+      </div>
+      <div class="foot-meta">
+        주소: (우) 41566 대구광역시 북구 대학로 80 미래융합관 616호<br/>
+        Tel: 02-000-0000 · E-mail: npml@example.ac.kr<br/>
+        COPYRIGHT © NPML. ALL RIGHTS RESERVED.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
+  <script>
+    // Firebase 설정 (네 프로젝트 값)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAS6p4h09vtAlho4eztwStPaYNO0rc6iOQ",
+      authDomain: "npmlsite.firebaseapp.com",
+      projectId: "npmlsite",
+      storageBucket: "npmlsite.firebasestorage.app",
+      messagingSenderId: "186697073652",
+      appId: "1:186697073652:web:95a7d17c736a0d95ffafa1"
+    };
+
+    // 초기화
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db   = firebase.firestore();
+    const st   = firebase.storage();
+
+    // DOM
+    const userInfo   = document.getElementById('userInfo');
+    const loginBtn   = document.getElementById('loginBtn');
+    const logoutBtn  = document.getElementById('logoutBtn');
+    const writeSec   = document.getElementById('writeSec');
+    const postForm   = document.getElementById('postForm');
+    const titleEl    = document.getElementById('title');
+    const contentEl  = document.getElementById('content');
+    const fileEl     = document.getElementById('file');
+    const uploadHint = document.getElementById('uploadHint');
+    const listEl     = document.getElementById('list');
+    const moreBtn    = document.getElementById('moreBtn');
+
+    const qEl        = document.getElementById('q');
+    const sortEl     = document.getElementById('sort');
+    const onlyMine   = document.getElementById('onlyMine');
+    const onlyWithImg= document.getElementById('onlyWithImg');
+
+    // 로그인
+    const provider = new firebase.auth.GoogleAuthProvider();
+    loginBtn.addEventListener('click', ()=> auth.signInWithPopup(provider).catch(e=>alert('로그인 실패: '+e.message)));
+    logoutBtn.addEventListener('click', ()=> auth.signOut().catch(e=>alert('로그아웃 실패: '+e.message)));
+
+    let currentUser = null;
+    auth.onAuthStateChanged(user=>{
+      currentUser = user || null;
+      if(user){
+        userInfo.textContent = `${user.displayName || '사용자'} (${user.email})`;
+        loginBtn.style.display='none'; logoutBtn.style.display='inline-block';
+        writeSec.style.display='block';
+      }else{
+        userInfo.textContent = '로그인 안 됨';
+        loginBtn.style.display='inline-block'; logoutBtn.style.display='none';
+        writeSec.style.display='none';
+      }
+      resetAndLoad();
+    });
+
+    // ===== 페이지네이션 + 클라 필터 =====
+    const PAGE_SIZE_DEFAULT = 6;
+    let PAGE_SIZE = PAGE_SIZE_DEFAULT;
+    let cursor = null;
+    let loading=false, reachedEnd=false;
+    let cachedDocs = []; // 현재까지 로드한 문서(필터용)
+
+    sortEl.addEventListener('change', resetAndLoad);
+    onlyMine.addEventListener('click', ()=>{ toggleChip(onlyMine); applyFilter(); });
+    onlyWithImg.addEventListener('click', ()=>{ toggleChip(onlyWithImg); applyFilter(); });
+    qEl.addEventListener('input', debounce(applyFilter, 200));
+    moreBtn.addEventListener('click', ()=> loadPage(false));
+
+    function toggleChip(el){
+      const active = el.getAttribute('aria-pressed') === 'true';
+      el.setAttribute('aria-pressed', active ? 'false' : 'true');
+      // 시각 토글(공용 .btn만 쓰므로 살짝 효과)
+      el.style.background = active ? '#fff' : '#eef6ff';
+      el.style.borderColor = active ? 'var(--border)' : '#bfdbfe';
+      el.style.color = active ? 'inherit' : '#1d4ed8';
+    }
+
+    function getBaseQuery(){
+      const dir = sortEl.value === 'asc' ? 'asc' : 'desc';
+      let q = db.collection('posts').orderBy('createdAt', dir).limit(PAGE_SIZE);
+      if (cursor) q = q.startAfter(cursor);
+      return q;
+    }
+
+    async function loadPage(initial){
+      if(loading || reachedEnd) return;
+      loading = true;
+      try{
+        const snap = await getBaseQuery().get();
+        if (snap.empty){
+          reachedEnd = true;
+          moreBtn.style.display = 'none';
+          loading = false;
+          return;
+        }
+        cursor = snap.docs[snap.docs.length-1];
+        cachedDocs = cachedDocs.concat(snap.docs.map(d=>({id:d.id,...d.data()})));
+        renderFiltered();
+        moreBtn.style.display = (snap.size === PAGE_SIZE) ? 'inline-block' : 'none';
+        if (snap.size < PAGE_SIZE) reachedEnd = true;
+      }catch(e){
+        alert('목록 불러오기 실패: '+e.message);
+      }finally{
+        loading=false;
+      }
+    }
+
+    function resetAndLoad(){
+      listEl.innerHTML = '';
+      moreBtn.style.display='none';
+      cursor=null; loading=false; reachedEnd=false;
+      cachedDocs = [];
+      loadPage(true);
+    }
+
+    function applyFilter(){ renderFiltered(); }
+
+    function renderFiltered(){
+      const kw = (qEl.value||'').trim().toLowerCase();
+      const me = onlyMine.getAttribute('aria-pressed') === 'true';
+      const wimg = onlyWithImg.getAttribute('aria-pressed') === 'true';
+
+      const filtered = cachedDocs.filter(d=>{
+        if (me && (!currentUser || d.uid !== currentUser.uid)) return false;
+        if (wimg && !d.imageURL) return false;
+        if (kw){
+          const hay = ((d.title||'') + ' ' + (d.content||'')).toLowerCase();
+          if (!hay.includes(kw)) return false;
+        }
+        return true;
+      });
+
+      const dir = sortEl.value === 'asc' ? 1 : -1;
+      filtered.sort((a,b)=>{
+        const ta = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+        const tb = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+        return dir*(ta - tb);
+      });
+
+      listEl.innerHTML = '';
+      filtered.forEach(d => listEl.appendChild(renderItem(d)));
+      moreBtn.style.display = reachedEnd ? 'none' : 'inline-block';
+    }
+
+    // ===== 글 등록 + 이미지 업로드 =====
+    postForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(!currentUser){ alert('로그인이 필요합니다.'); return; }
+      const title = titleEl.value.trim();
+      const content = contentEl.value.trim();
+      if(!title || !content) return;
+
+      const file = fileEl.files && fileEl.files[0];
+
+      try{
+        // 1) 문서 생성
+        const docRef = await db.collection('posts').add({
+          title, content,
+          uid: currentUser.uid,
+          author: currentUser.displayName || currentUser.email || '익명',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          hasImage: !!file,
+          imageURL: null
+        });
+
+        // 2) 이미지 업로드
+        if(file){
+          uploadHint.textContent = '이미지 업로드 중…';
+          const path = `posts/${currentUser.uid}/${docRef.id}/${Date.now()}_${file.name}`;
+          const ref  = st.ref().child(path);
+          await ref.put(file);
+          const url = await ref.getDownloadURL();
+          await docRef.update({ imageURL: url });
+          uploadHint.textContent = '업로드 완료 ✅';
+        }else{
+          uploadHint.textContent = '';
+        }
+
+        titleEl.value = ''; contentEl.value=''; fileEl.value = '';
+        resetAndLoad();
+      }catch(err){
+        alert('등록 실패: '+err.message);
+        console.error(err);
+      }
+    });
+
+    // ===== 렌더링 =====
+    function renderItem(d){
+      const created = d.createdAt?.toDate ? d.createdAt.toDate() : null;
+      const updated = d.updatedAt?.toDate ? d.updatedAt.toDate() : null;
+      const whenStr = created ? new Date(created).toLocaleString() : '작성중…';
+
+      const el = document.createElement('article');
+      el.className = 'card';
+      el.style.padding = '16px';
+      el.style.marginBottom = '12px';
+
+      const title = document.createElement('h3');
+      title.textContent = d.title || '';
+      title.style.margin = '0 0 6px';
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.innerHTML = `
+        ${escapeHtml(d.author || '익명')} · <span>${whenStr}</span>
+        ${updated ? `<span style="color:#94a3b8"> · 수정됨 ${new Date(updated).toLocaleString()}</span>` : ''}
+        ${d.imageURL ? `<span style="color:#10b981"> · 이미지</span>` : ''}
+      `;
+
+      const body = document.createElement('div');
+      body.innerHTML = nl2br(escapeHtml(d.content || ''));
+
+      el.append(title, meta, body);
+
+      if (d.imageURL){
+        const t = document.createElement('div');
+        t.style.marginTop = '8px';
+        t.innerHTML = `<img src="${d.imageURL}" alt="첨부 이미지" style="max-width:100%; border-radius:12px; border:1px solid var(--border)">`;
+        el.appendChild(t);
+      }
+
+      if (auth.currentUser && d.uid === auth.currentUser.uid){
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+        actions.style.marginTop = '10px';
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn';
+        editBtn.textContent = '수정';
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn';
+        delBtn.textContent = '삭제';
+        delBtn.style.background = '#fff0f0';
+        delBtn.style.borderColor = '#fecaca';
+
+        actions.append(editBtn, delBtn);
+        el.appendChild(actions);
+
+        delBtn.addEventListener('click', async()=>{
+          if(!confirm('삭제할까요?')) return;
+          try{
+            await db.collection('posts').doc(d.id || '').delete();
+            resetAndLoad();
+          }catch(err){ alert('삭제 실패: '+err.message); }
+        });
+
+        editBtn.addEventListener('click', ()=>{
+          if (el.querySelector('form.edit')) return;
+          title.style.display='none'; body.style.display='none';
+
+          const form = document.createElement('form');
+          form.className = 'edit';
+          form.style.display='grid'; form.style.gap='8px'; form.style.marginTop='10px';
+
+          const t = document.createElement('input');
+          t.value = d.title || ''; t.required = true; t.maxLength=100;
+          t.style.border='1px solid var(--border)'; t.style.borderRadius='12px'; t.style.padding='10px';
+
+          const c = document.createElement('textarea');
+          c.value = d.content || ''; c.required = true; c.maxLength=5000;
+          c.style.border='1px solid var(--border)'; c.style.borderRadius='12px'; c.style.padding='10px'; c.style.minHeight='120px';
+
+          const row = document.createElement('div'); row.className='actions';
+
+          const save = document.createElement('button'); save.type='submit'; save.className='btn'; save.textContent='저장';
+          const cancel = document.createElement('button'); cancel.type='button'; cancel.className='btn'; cancel.textContent='취소';
+
+          row.append(save, cancel); form.append(t, c, row); el.appendChild(form);
+
+          cancel.addEventListener('click', ()=>{ form.remove(); title.style.display=''; body.style.display=''; });
+
+          form.addEventListener('submit', async (e)=>{
+            e.preventDefault();
+            const newTitle = t.value.trim();
+            const newCont  = c.value.trim();
+            if (!newTitle || !newCont) return;
+            try{
+              await db.collection('posts').doc(d.id).update({
+                title:newTitle, content:newCont,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+              });
+              form.remove(); title.style.display=''; body.style.display='';
+              resetAndLoad();
+            }catch(err){ alert('수정 실패: ' + err.message); }
+          });
+        });
+      }
+
+      return el;
+    }
+
+    // 유틸
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+    function nl2br(s){ return String(s).replace(/\n/g,'<br>'); }
+    function debounce(fn,ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; }
+
+    // 최초 로드
+    resetAndLoad();
+  </script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NPML — Natural Products Metabolomics Lab</title>
+
+  <!-- Google Fonts (Montserrat / Noto Sans KR) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+KR:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- 로컬 CSS 연결 -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- 배너 사진 -->
+  <style>
+  :root{ --hero-img:url("assets/경북대_오전_사진.png"); }
+  </style>
+
+  <!-- 캐시 초기화 스크립트 (페이지 로드 시 CSS 최신 버전 로드) -->
+  <script>
+  (function(){
+    try{
+      const p=n=>String(n).padStart(2,'0');
+      const now=new Date();
+      const kr=new Date(now.getTime()+9*3600*1000); // KST 적용
+      const ver=kr.getUTCFullYear()+p(kr.getUTCMonth()+1)+p(kr.getUTCDate())+'-'+p(kr.getUTCHours())+p(kr.getUTCMinutes())+p(kr.getUTCSeconds());
+
+      const url=new URL(location.href);
+      const hasV=url.searchParams.has('v');
+      const v = hasV ? url.searchParams.get('v') : ver;
+
+      // 로컬 CSS만 버전 파라미터 붙이기
+      document.querySelectorAll('link[rel="stylesheet"]').forEach(link=>{
+        const u = new URL(link.href, location.href);
+        if(u.origin === location.origin){
+          u.searchParams.set('v', v);
+          link.href = u.toString();
+        }
+      });
+
+      // 현재 페이지 URL에 v 파라미터 없으면 추가
+      if(!hasV){
+        url.searchParams.set('v', v);
+        location.replace(url.toString());
+      }
+    }catch(e){ console.warn('cachebuster failed', e); }
+  })();
+  </script>
+</head>
+
+<body>
+  <!-- 상단 내비게이션 -->
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand">NPML</div>
+      <nav>
+        <a href="index.html" aria-current="page">홈</a>
+        <a href="about.html">About</a>
+        <a href="publications.html">Publications</a>
+        <!-- ▼ Links 드롭다운 -->
+        <span class="nav-drop">
+          <a href="team.html" aria-haspopup="true" aria-expanded="false">Team</a>
+          <span class="menu" role="menu">
+            <a href="team.html#notices" role="menuitem">1</a>
+            <a href="team.html#gallery" role="menuitem">2</a>
+          </span>
+        </span>
+        <!-- ▲ 드롭다운 끝 -->
+        <a href="photos.html">Photos</a>
+        <a href="contact.html">Contact</a>
+        <a href="board.html">Board</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 히어로 배너 -->
+  <section class="hero" id="home">
+    <div>
+      <h1>천연물대사체연구실</h1>
+      <p>경북대학교 생명공학부</p>
+    </div>
+  </section>
+
+  <!-- 메인 콘텐츠 -->
+  <div class="wrap">
+    <div class="grid">
+      <!-- Research Carousel -->
+      <section class="section" data-carousel id="research-sec">
+       <div class="head">
+  <h2>Research Topics</h2>
+  <div class="actions">
+    <div class="controls">
+      <button class="btn" data-prev aria-label="이전">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="btn" data-next aria-label="다음">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+    <!-- 더보기(Research 전체 페이지로 이동) -->
+    <a class="more" href="research.html" aria-label="Research 더보기">+</a>
+  </div>
+</div>
+        <div class="clip">
+          <div class="track">
+            <article class="card"><div class="thumb"><img src="https://picsum.photos/seed/a/640/360" alt=""></div><div class="body"><h3 class="title">천연물 약리기전</h3><div class="meta">활성 성분 분리·동정</div></div></article>
+            <article class="card"><div class="thumb"><img src="https://picsum.photos/seed/b/640/360" alt=""></div><div class="body"><h3 class="title">대사체 바이오마커</h3><div class="meta">LC–MS/NMR</div></div></article>
+            <article class="card"><div class="thumb"><img src="https://picsum.photos/seed/c/640/360" alt=""></div><div class="body"><h3 class="title">에너지 대사·섬유화</h3><div class="meta">미토콘드리아 타깃</div></div></article>
+            <article class="card"><div class="thumb"><img src="https://picsum.photos/seed/d/640/360" alt=""></div><div class="body"><h3 class="title">신규 화합물</h3><div class="meta">구조·기전 규명</div></div></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Publications Carousel -->
+      <section class="section" data-carousel id="pubs-sec">
+       <div class="head">
+  <h2>Recent Publications</h2>
+  <div class="actions">
+    <div class="controls">
+      <button class="btn" data-prev aria-label="이전">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="btn" data-next aria-label="다음">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+    <!-- 더보기(Publications 전체 페이지로 이동) -->
+    <a class="more" href="publications.html" aria-label="Publications 더보기">+</a>
+  </div>
+</div>
+
+        <div class="clip">
+          <div class="track">
+            <article class="card"><div class="thumb"><img src="https://picsum.photos/seed/e/640/360" alt=""></div><div class="body"><h3 class="title">Paper A</h3><div class="meta">Journal · 2025</div></div></article>
+            <article class="card"><div class="thumb"><img src="https://picsum.photos/seed/f/640/360" alt=""></div><div class="body"><h3 class="title">Paper B</h3><div class="meta">Journal · 2024</div></div></article>
+            <article class="card"><div class="thumb"><img src="https://picsum.photos/seed/g/640/360" alt=""></div><div class="body"><h3 class="title">Paper C</h3><div class="meta">Journal · 2023</div></div></article>
+            <article class="card"><div class="thumb"><img src="https://picsum.photos/seed/h/640/360" alt=""></div><div class="body"><h3 class="title">Paper D</h3><div class="meta">Journal · 2022</div></div></article>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 공지 & 바로가기 -->
+    <section class="two-col" id="links-sec" style="margin-top:24px">
+     <div class="notice">
+  <div class="sec-head" style="padding:12px 14px; border-bottom:1px solid var(--border);">
+    <h3 style="font-family:Montserrat,sans-serif; font-size:20px; margin:0;">NOTICES</h3>
+    <!-- 공지 전체 페이지(또는 섹션)로 이동 -->
+    <!-- 전용 페이지가 있으면 notices.html로, 지금 구조면 links.html#notices로 -->
+    <a class="more" href="links.html#notices" aria-label="공지 더보기">+</a>
+  </div>
+  <ul style="list-style:none; padding:8px 14px; margin:0;">
+    <li><a href="#"><span>공지 1</span><time>2025-08-12</time></a></li>
+    <li><a href="#"><span>공지 2</span><time>2025-08-05</time></a></li>
+    <li><a href="#"><span>공지 3</span><time>2025-07-30</time></a></li>
+  </ul>
+</div>
+      <div class="quick">
+        <a class="q3" href="#" target="_blank" rel="noopener">
+          GALLERY <small>연구실 사진 보기</small>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- 캐러셀 동작 스크립트 -->
+  <script>
+  (function(){
+    document.querySelectorAll('[data-carousel]').forEach(sec=>{
+      const track=sec.querySelector('.track');
+      const cards=[...track.children];
+      const prev=sec.querySelector('[data-prev]');
+      const next=sec.querySelector('[data-next]');
+      let index=0,visible=3,cardW=0,timer=null;
+
+      function compute(){
+        const clip=sec.querySelector('.clip');
+        const gap=parseFloat(getComputedStyle(track).getPropertyValue('--gap')||18);
+        cardW=cards[0].getBoundingClientRect().width+gap;
+        const total=clip.getBoundingClientRect().width+gap;
+        visible=Math.max(1,Math.round(total/cardW));
+        go(index,false);
+      }
+      function go(i,animate=true){
+        const maxIndex=Math.max(0,cards.length-visible);
+        index=Math.min(Math.max(0,i),maxIndex);
+        track.style.transitionDuration=animate?'.4s':'0s';
+        track.style.transform=`translateX(${-index*cardW}px)`;
+      }
+      function step(dir){go(index+dir,true);}
+
+      prev.addEventListener('click',()=>step(-1));
+      next.addEventListener('click',()=>step(1));
+      window.addEventListener('resize',compute);
+
+      function startAuto(){
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        stopAuto();
+        timer=setInterval(()=>{
+          const maxIndex=Math.max(0,cards.length-visible);
+          index>=maxIndex?go(0,true):step(1);
+        },4000);
+      }
+      function stopAuto(){ if(timer){ clearInterval(timer); timer=null; } }
+
+      sec.addEventListener('mouseenter',stopAuto);
+      sec.addEventListener('mouseleave',startAuto);
+      sec.addEventListener('focusin',stopAuto);
+      sec.addEventListener('focusout',startAuto);
+
+      compute();
+      startAuto();
+      window.addEventListener('load',compute);
+    });
+  })();
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-top">
+        <div class="foot-links">
+          <a href="#">개인정보처리방침</a>
+          <a href="#">이메일무단수집거부</a>
+          <a href="#">CONTACT US</a>
+        </div>
+        <div style="font-family:Montserrat,sans-serif;font-weight:700">NPML</div>
+      </div>
+      <div class="foot-meta">
+        주소: (우) 41566 대구광역시 북구 대학로 80 미래융합관 616호<br/>
+        Tel: 02-000-0000 · E-mail: npml@example.ac.kr<br/>
+        COPYRIGHT © NPML. ALL RIGHTS RESERVED.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
