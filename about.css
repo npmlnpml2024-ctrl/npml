@@ -59,4 +59,6 @@
   }
 }
 /* About 전용: 상단 여백 제거 (공통 .wrap 24px 무시) */
-.wrap{ margin-top:0; }
+.wrap { margin-top:0; }   /* 공통 wrap 여백 덮어쓰기 */
+.subtabs { margin-top:0; } /* 굳이 음수마진 말고 그냥 0으로 */
+
