@@ -14,7 +14,7 @@
 #vision, #research, #equipment{ scroll-margin-top:96px; }
 :target .head h2{ box-shadow: inset 0 -8px 0 rgba(0,74,159,.15); }
 
-/* 3) 배너 바로 밑 subtabs (완전 투명 + hover 효과) */
+/* 3) 배너 바로 밑 subtabs (완전 투명 + hover 효과, 밑 공간 없음) */
 .subtabs{
   position: sticky;
   top:56px;              /* 상단 내비 높이 */
@@ -29,9 +29,9 @@
 
 .subtabs a{
   flex:1; text-align:center;
-  padding:14px 0;
+  line-height:48px;          /* 버튼 높이 조절 (padding 대신) */
   background:transparent;    /* 완전 투명 */
-  border:0; border-radius:0; /* 네모, 둥근 모서리 없음 */
+  border:0; border-radius:0; /* 네모 */
   font-weight:700; color:#fff;
   text-decoration:none;
   transition:background .25s ease, color .25s ease;
@@ -42,7 +42,7 @@
 }
 
 .subtabs a:hover{
-  background:rgba(255,255,255,.15); /* 마우스 올리면 은은하게 */
+  background:rgba(255,255,255,.15); /* hover 시 은은하게 */
 }
 
 .subtabs a[aria-selected="true"]{
