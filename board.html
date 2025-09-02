@@ -36,23 +36,34 @@
 
 <body>
   <!-- 상단 내비 (홈과 동일) -->
-  <div class="nav" role="navigation" aria-label="주요">
+    <!-- 상단 내비게이션 -->
+  <div class="nav">
     <div class="nav-inner">
       <div class="brand">NPML</div>
       <nav>
         <a href="index.html">홈</a>
-        <a href="about.html">About</a>
-        <a href="publications.html">Publications</a>
         <span class="nav-drop">
-          <a href="team.html" aria-haspopup="true" aria-expanded="false">Team</a>
-          <span class="menu" role="menu">
-            <a href="links.html#notices" role="menuitem">1</a>
-            <a href="links.html#gallery" role="menuitem">2</a>
+          <a href="about.html" aria-current="page">About</a>
+          <span class="menu">
+            <a href="#vision">실험실 비전</a>
+            <a href="#research">Research</a>
+            <a href="#equipment">장비소개</a>
           </span>
         </span>
+        <a href="publications.html">Publications</a>
+        <!-- Team 드롭다운 -->
+<span class="nav-drop">
+  <a href="team.html" aria-haspopup="true" aria-expanded="false">Team</a>
+  <span class="menu" role="menu">
+    <a href="team.html#professor" role="menuitem">Professor</a>
+    <a href="team.html#current" role="menuitem">Current Members</a>
+    <a href="team.html#alumni" role="menuitem">Alumni</a>
+  </span>
+</span>
+
         <a href="photos.html">Photos</a>
-        <a href="contact.html">Contact
-        <a href="board.html" aria-current="page">Board</a>
+        <a href="contact.html">Contact</a>
+        <a href="board.html">Board</a>
       </nav>
     </div>
   </div>
