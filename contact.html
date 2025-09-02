@@ -14,63 +14,21 @@
   <link rel="stylesheet" href="style.css">
 
   <!-- 배너 사진 -->
+  <style>:root{ --hero-img:url("assets/경북대_오전_사진.png"); }</style>
+
   <style>
-    :root {
-      --hero-img:url("assets/경북대_오전_사진.png");
+    .contact-box{
+      background:#fff; border:1px solid var(--border); border-radius:12px;
+      padding:20px; line-height:1.6;
     }
-
-    .contact-box {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    .contact-box h2 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .contact-box ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .contact-box ul li {
-      margin-bottom: 4px;
-    }
-
-    .contact-box a {
-      color: var(--brand);
-      text-decoration: none;
-    }
-
-    .contact-box a:hover {
-      text-decoration: underline;
-    }
-
-    .map-box {
-      margin-top: 32px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .map-box iframe {
-      width: 100%;
-      height: 450px;
-      border: 0;
-      display: block;
-    }
+    .contact-box h2{ font-size:22px; margin-bottom:8px; }
+    .map-box{ margin-top:24px; border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+    .map-box iframe{ width:100%; height:400px; border:0; display:block; }
   </style>
 </head>
 <body>
 
-  <!-- 상단 내비게이션 -->
+  <!-- 상단 내비 -->
   <div class="nav">
     <div class="nav-inner">
       <div class="brand">NPML</div>
@@ -79,10 +37,10 @@
         <a href="about.html">About</a>
         <a href="publications.html">Publications</a>
         <span class="nav-drop">
-          <a href="team.html" aria-haspopup="true" aria-expanded="false">Team</a>
+          <a href="team.html" aria-haspopup="true">Team</a>
           <span class="menu" role="menu">
-            <a href="team.html#notices" role="menuitem">1</a>
-            <a href="team.html#gallery" role="menuitem">2</a>
+            <a href="team.html#notices">1</a>
+            <a href="team.html#gallery">2</a>
           </span>
         </span>
         <a href="photos.html">Photos</a>
@@ -93,44 +51,19 @@
   </div>
 
   <!-- 배너 -->
-  <div class="hero">
-    <div class="hero-inner">
-      <h1>Contact</h1>
-    </div>
-  </div>
+  <div class="hero"><div class="hero-inner"><h1>Contact</h1></div></div>
 
-  <!-- 콘텐츠 영역 -->
+  <!-- 콘텐츠 -->
   <div class="wrap">
-    <!-- 교수 정보 -->
     <section class="contact-box">
       <h2>이대영 교수</h2>
-      <p>대구광역시 북구 대학로 80, 경북대학교 생명공학부(219동) 617호</p>
-      <ul>
-        <li>∙ 연구실: 053-950-5375</li>
-        <li>∙ 팩스: 053-955-5522</li>
-        <li>∙ 전자메일: <a href="mailto:dylee80@knu.ac.kr">dylee80@knu.ac.kr</a></li>
-      </ul>
-      <br/>
-      <p><strong>Dae Young Lee (Ph. D., Professor)</strong><br/>
-      Natural Products Metabolomics Lab. (Room 617)<br/>
-      School of Life Science and Biotechnology (Bldg. 219)<br/>
-      Kyungpook National University<br/>
-      80, Daehak-ro, Buk-gu, Daegu, Republic of Korea</p>
-      <ul>
-        <li>∙ Tel: +82-53-950-5375</li>
-        <li>∙ Fax: +82-53-955-5522</li>
-        <li>∙ E-mail: <a href="mailto:dylee80@knu.ac.kr">dylee80@knu.ac.kr</a></li>
-      </ul>
+      <p>경북대학교 생명공학부(219동) 617호<br/>대구광역시 북구 대학로 80</p>
+      <p>Tel: 053-950-5375 · Fax: 053-955-5522<br/>
+         E-mail: <a href="mailto:dylee80@knu.ac.kr">dylee80@knu.ac.kr</a></p>
     </section>
 
-    <!-- 지도 영역 -->
     <section class="map-box">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1284.191301692115!2d128.6098343045061!3d35.89000014269516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3565e2b32c70a3f7%3A0x7a06ec3cb1cf71db!2z6rK96riw64-EIOyYge2Vmeq1rCDsl63sgqzrjIDtirjqs7Xsm5Ag66eI66-87Yq47ZWZ6rWsIDIxOeusuOyEvCDqsJXqtawg6rO87ZmU7KCQIDEz!5e0!3m2!1sko!2skr!4v1692123456789"
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!...생략..." loading="lazy"></iframe>
     </section>
   </div>
 
@@ -152,6 +85,5 @@
       </div>
     </div>
   </footer>
-
 </body>
 </html>
