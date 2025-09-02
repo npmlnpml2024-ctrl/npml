@@ -67,7 +67,7 @@ a{ color:inherit; text-decoration:none; }
 /* ===== 4) Layout ===== */
 .wrap{ width:100%; max-width:1200px; margin:24px auto; padding:0 4%; }
 .grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-@media (max-width:760px){ .grid{ grid-template-columns:1fr; } }
+@media (max-width:980px){ .grid{ grid-template-columns:1fr; } }
 
 /* 헤더 오른쪽(캐러셀 버튼 + 더보기) 묶음 */
 .actions{ display:flex; align-items:center; gap:8px; }
@@ -102,7 +102,7 @@ a{ color:inherit; text-decoration:none; }
 
 /* ===== 7) Notices & Quick Links ===== */
 .two-col{ display:grid; grid-template-columns:1.3fr .7fr; gap:24px; }
-@media (max-width:980px){ .two-col{ grid-template-columns:1fr; } }
+@media (max-width:760px){ .two-col{ grid-template-columns:1fr; } }
 .notice{
   border:1px solid var(--border); border-radius:12px; background:#fff;
 }
