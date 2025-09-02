@@ -3,106 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Links — NPML</title>
+  <title>Team — NPML</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+KR:wght@400;600&display=swap" rel="stylesheet">
-  
-  <!-- Shared CSS -->
+
+  <!-- 공통 CSS -->
   <link rel="stylesheet" href="style.css">
+  <!-- 페이지 전용 CSS -->
+  <link rel="stylesheet" href="team.css">
 
   <!-- 배너 사진 -->
   <style>
-  :root{ --hero-img:url("assets/경북대_오전_사진.png"); }
-  </style>
-  
-  <style>
-    /* 현재 메뉴 강조 */
-    .nav a.active { color: var(--brand); }
-
-    /* 탭 헤더 */
-    .tabs {
-      display:flex; gap:8px; border-bottom:1px solid var(--border);
-      margin:12px 0 16px;
-    }
-    .tabs button{
-      appearance:none; border:1px solid var(--border); background:#fff; color:#111;
-      padding:10px 14px; border-radius:10px 10px 0 0; font-weight:700; cursor:pointer;
-    }
-    .tabs button[aria-selected="true"]{
-      background:#fff; border-bottom-color:#fff; color:var(--brand);
-      box-shadow:0 -2px 0 #fff, 0 -3px 0 var(--brand) inset;
-    }
-
-    /* 공지 게시판 (research 톤 맞춤) */
-    .board{border:1px solid var(--border);border-radius:12px;background:#fff;overflow:hidden}
-    .board table{width:100%;border-collapse:collapse}
-    .board th,.board td{padding:12px 14px;border-bottom:1px solid var(--border)}
-    .board th{background:#f8fafc;text-align:left}
-    .board tr:hover td{background:#f1f5f9}
-    .board .title{color:var(--brand);font-weight:600}
-    .board time{color:var(--muted);font-size:13px;white-space:nowrap}
-
-    /* 갤러리: 액자형 카드 그리드 */
-    .gallery{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    @media (max-width: 1100px){ .gallery{ grid-template-columns: repeat(3, 1fr);} }
-    @media (max-width: 760px){ .gallery{ grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width: 460px){ .gallery{ grid-template-columns: 1fr; } }
-
-    .gcard{
-      background:#fff; border:1px solid var(--border); border-radius:14px; overflow:hidden;
-      display:flex; flex-direction:column;
-      transition:transform .15s ease, box-shadow .15s ease;
-    }
-    .gcard:hover{ transform: translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.06); }
-    .gthumb{ aspect-ratio: 16/10; background:#f5f7fa; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-    .gthumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .gbody{ padding:10px 12px; }
-    .gtitle{ font-weight:700; margin-bottom:4px; }
-    .gmeta{ font-size:12px; color:var(--muted); }
-
-    /* 숨김 토글 */
-    [hidden]{ display:none !important; }
-    /* 라이트박스 */
-.lightbox {
-  position: fixed; inset: 0; z-index: 1000; display: none;
-  background: rgba(0,0,0,.75);
-}
-.lightbox[aria-hidden="false"] { display: grid; place-items: center; }
-.lightbox-inner {
-  position: relative; max-width: min(90vw, 1100px); max-height: 90vh;
-  display: grid; grid-template-rows: 1fr auto; gap: 8px;
-}
-.lightbox-figure {
-  display: grid; place-items: center; background:#111; border-radius:12px; overflow:hidden;
-  max-height: 80vh;
-}
-.lightbox-figure img { width: 100%; height: 100%; object-fit: contain; }
-
-.lightbox-caption {
-  color: #fff; text-align: center; font-weight: 600;
-}
-
-.lightbox-close, .lightbox-prev, .lightbox-next {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(255,255,255,.9); border: 0; border-radius: 999px;
-  width: 40px; height: 40px; cursor: pointer; display: grid; place-items: center;
-}
-.lightbox-close { top: 8px; right: 8px; transform: none; }
-.lightbox-prev { left: -52px; }
-.lightbox-next { right: -52px; }
-@media (max-width: 760px){
-  .lightbox-prev { left: 8px; }
-  .lightbox-next { right: 8px; }
-}
-.lightbox-close:focus, .lightbox-prev:focus, .lightbox-next:focus { outline: 2px solid var(--brand);
-
+    :root{ --hero-img:url("assets/경북대_오전_사진.png"); }
   </style>
 </head>
 <body>
@@ -114,15 +29,17 @@
         <a href="index.html">홈</a>
         <a href="about.html">About</a>
         <a href="publications.html">Publications</a>
-        <!-- ▼ Links 드롭다운 -->
+
+        <!-- Team 드롭다운 (앵커로 연결) -->
         <span class="nav-drop">
-          <a href="team.html" aria-haspopup="true" aria-expanded="false" aria-current="page">Team</a>
+          <a href="team.html" aria-current="page" aria-haspopup="true" aria-expanded="false">Team</a>
           <span class="menu" role="menu">
-            <a href="team.html#notices" role="menuitem">1</a>
-            <a href="team.html#gallery" role="menuitem">2</a>
+            <a href="#professor" role="menuitem">Professor</a>
+            <a href="#current" role="menuitem">Current Members</a>
+            <a href="#alumni" role="menuitem">Alumni</a>
           </span>
         </span>
-        <!-- ▲ 드롭다운 끝 -->
+
         <a href="photos.html">Photos</a>
         <a href="contact.html">Contact</a>
         <a href="board.html">Board</a>
@@ -130,69 +47,77 @@
     </div>
   </div>
 
-  <div class="hero">
-  <div class="hero-inner">
-    <h1>People</h1>
-  </div>
-</div>
-
-
-  <!-- Content -->
-  <div class="wrap">
-    <h1>Links</h1>
-
-    <!-- 탭 헤더 -->
-    <div class="tabs" role="tablist" aria-label="Links Tabs">
-      <button type="button" role="tab" id="tab-notices-btn" aria-controls="tab-notices" aria-selected="true">공지</button>
-      <button type="button" role="tab" id="tab-gallery-btn" aria-controls="tab-gallery" aria-selected="false">갤러리</button>
+  <!-- 히어로 배너 -->
+  <section class="hero">
+    <div class="hero-inner" style="text-align:center">
+      <h1>Team</h1>
+      <p style="margin-top:6px; opacity:.95">People of NPML</p>
     </div>
 
-    <!-- 탭 패널: 공지(게시판) -->
-    <section id="tab-notices" role="tabpanel" aria-labelledby="tab-notices-btn">
-      <div class="board">
-        <table>
-          <thead>
-            <tr><th>제목</th><th style="width:160px">날짜</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><a href="#" class="title">8월 세미나 일정 안내</a></td><td><time>2025-08-12</time></td></tr>
-            <tr><td><a href="#" class="title">장비 유지보수 공지(LC–MS)</a></td><td><time>2025-08-05</time></td></tr>
-            <tr><td><a href="#" class="title">학부연구생 모집</a></td><td><time>2025-07-30</time></td></tr>
-            <tr><td><a href="#" class="title">연구실 안전교육 필참</a></td><td><time>2025-07-15</time></td></tr>
+    <!-- 배너 위에 겹치는 Subtabs -->
+    <div class="subtabs-bar" role="tablist" aria-label="Team Tabs">
+      <a href="#professor" role="tab" aria-selected="true">Professor</a>
+      <a href="#current"   role="tab" aria-selected="false">Current Members</a>
+      <a href="#alumni"    role="tab" aria-selected="false">Alumni</a>
+    </div>
+  </section>
 
-            <!-- 더미 데이터(스크롤 확인용) -->
-            <tr><td><a href="#" class="title">시약 재고 점검 주간</a></td><td><time>2025-07-01</time></td></tr>
-            <tr><td><a href="#" class="title">HPLC 컬럼 교체 일정</a></td><td><time>2025-06-22</time></td></tr>
-            <tr><td><a href="#" class="title">세미나: 대사체 데이터 품질관리</a></td><td><time>2025-06-10</time></td></tr>
-            <tr><td><a href="#" class="title">연구윤리 서약서 제출</a></td><td><time>2025-06-01</time></td></tr>
-            <tr><td><a href="#" class="title">NMR 사용자 교육 신청</a></td><td><time>2025-05-20</time></td></tr>
-            <tr><td><a href="#" class="title">실험실 청결 점검</a></td><td><time>2025-05-08</time></td></tr>
-          </tbody>
-        </table>
+  <!-- 본문 -->
+  <div class="wrap">
+    <!-- Professor -->
+    <section id="professor" class="section">
+      <div class="head"><h2>Professor</h2></div>
+      <div class="cards">
+        <article class="card">
+          <div class="thumb"><img src="https://dummyimage.com/400x400/cccccc/ffffff&text=Photo" alt=""></div>
+          <div class="body">
+            <div class="name">홍 길동</div>
+            <div class="role">PI / Professor</div>
+            <div class="meta">E-mail: hong@npml.ac.kr</div>
+            <p class="desc">천연물 대사체학 · 기능성 성분 발굴 · LC–MS/NMR</p>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- 탭 패널: 갤러리(액자형 그리드) -->
-    <section id="tab-gallery" role="tabpanel" aria-labelledby="tab-gallery-btn" hidden>
-      <div class="gallery">
-        <!-- 카드 예시들 -->
-        <article class="gcard">
-          <div class="gthumb"><img src="https://picsum.photos/seed/g1/640/400" alt="연구실 사진 1"></div>
-          <div class="gbody"><div class="gtitle">연구실 전경</div><div class="gmeta">2025-08-01</div></div>
+    <!-- Current Members -->
+    <section id="current" class="section" hidden>
+      <div class="head"><h2>Current Members</h2></div>
+      <div class="cards">
+        <!-- 예시 카드들 -->
+        <article class="card">
+          <div class="thumb"><img src="https://dummyimage.com/400x400/cccccc/ffffff&text=Photo" alt=""></div>
+          <div class="body">
+            <div class="name">김 영웅</div>
+            <div class="role">M.S. Student</div>
+            <div class="meta">E-mail: kim@npml.ac.kr</div>
+          </div>
         </article>
-        <article class="gcard">
-          <div class="gthumb"><img src="https://picsum.photos/seed/g2/640/400" alt="연구실 사진 2"></div>
-          <div class="gbody"><div class="gtitle">장비실</div><div class="gmeta">2025-07-25</div></div>
+        <article class="card">
+          <div class="thumb"><img src="https://dummyimage.com/400x400/cccccc/ffffff&text=Photo" alt=""></div>
+          <div class="body">
+            <div class="name">이 분석</div>
+            <div class="role">B.S. Intern</div>
+            <div class="meta">E-mail: lee@npml.ac.kr</div>
+          </div>
         </article>
-        <article class="gcard">
-          <div class="gthumb"><img src="https://picsum.photos/seed/g3/640/400" alt="연구실 사진 3"></div>
-          <div class="gbody"><div class="gtitle">세미나 현장</div><div class="gmeta">2025-07-12</div></div>
-        </article>
-        <article class="gcard">
-          <div class="gthumb"><img src="https://picsum.photos/seed/g4/640/400" alt="연구실 사진 4"></div>
-          <div class="gbody"><div class="gtitle">샘플 프렙</div><div class="gmeta">2025-07-01</div></div>
-        </article>
-        <!-- 필요시 더 추가 -->
+        <!-- 필요 시 더 추가 -->
+      </div>
+    </section>
+
+    <!-- Alumni -->
+    <section id="alumni" class="section" hidden>
+      <div class="head"><h2>Alumni</h2></div>
+      <div class="board">
+        <table>
+          <thead>
+            <tr><th>이름</th><th>학위/기간</th><th>현재 소속</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>박 연구</td><td>M.S. (2022–2024)</td><td>BioTech Corp.</td></tr>
+            <tr><td>최 분석</td><td>B.S. Intern (2023)</td><td>Graduate School</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
   </div>
@@ -215,104 +140,24 @@
       </div>
     </div>
   </footer>
-  <!-- Lightbox -->
-<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-  <div class="lightbox-inner">
-    <button class="lightbox-close" aria-label="닫기">&times;</button>
-    <button class="lightbox-prev" aria-label="이전">&#8249;</button>
-    <div class="lightbox-figure">
-      <img id="lightbox-img" alt="">
-    </div>
-    <div class="lightbox-caption" id="lightbox-cap"></div>
-    <button class="lightbox-next" aria-label="다음">&#8250;</button>
-  </div>
-</div>
 
-
+  <!-- 탭 전환 스크립트 -->
   <script>
-    // 탭 전환 스크립트 (공지/갤러리)
-    (function(){
-      const tabs = [
-        { btn: document.getElementById('tab-notices-btn'), panel: document.getElementById('tab-notices'), hash: '#notices' },
-        { btn: document.getElementById('tab-gallery-btn'), panel: document.getElementById('tab-gallery'), hash: '#gallery' }
-      ];
-      function selectTab(key){
-        tabs.forEach(t=>{
-          const active = (t.hash === key);
-          t.btn.setAttribute('aria-selected', active ? 'true' : 'false');
-          t.panel.hidden = !active;
-        });
-        // 주소 해시 동기화 (뒤로가기 동작 자연스럽게)
-        if(location.hash !== key) history.replaceState(null, '', key);
-      }
-      // 초기: 해시에 따라 열기
-      const initial = (location.hash === '#gallery') ? '#gallery' : '#notices';
-      selectTab(initial);
+  (function(){
+    const tabs = document.querySelectorAll('.subtabs-bar a');
+    const ids  = ['professor','current','alumni'];
+    const panels = ids.map(id=>document.getElementById(id));
 
-      tabs.forEach(t => t.btn.addEventListener('click', ()=> selectTab(t.hash)));
-    })();
+    function activate(hash){
+      const target = /^#(professor|current|alumni)$/.test(hash) ? hash : '#professor';
+      tabs.forEach(a=> a.setAttribute('aria-selected', (a.getAttribute('href')===target)?'true':'false'));
+      panels.forEach(p=> p.hidden = ('#'+p.id) !== target);
+      if(location.hash !== target) history.replaceState(null,'',target);
+    }
+    activate(location.hash);
+    tabs.forEach(a=> a.addEventListener('click', e=>{ e.preventDefault(); activate(a.getAttribute('href')); }));
+    window.addEventListener('hashchange', ()=> activate(location.hash));
+  })();
   </script>
-  <script>
-(function(){
-  // 갤러리 모든 이미지 수집
-  const items = Array.from(document.querySelectorAll('#tab-gallery .gthumb img'));
-  if(!items.length) return;
-
-  const lb = document.getElementById('lightbox');
-  const img = document.getElementById('lightbox-img');
-  const cap = document.getElementById('lightbox-cap');
-  const btnClose = lb.querySelector('.lightbox-close');
-  const btnPrev = lb.querySelector('.lightbox-prev');
-  const btnNext = lb.querySelector('.lightbox-next');
-
-  let idx = 0;
-
-  function show(i){
-    idx = (i + items.length) % items.length;
-    const srcSmall = items[idx].getAttribute('src');
-    // 더 큰 이미지가 필요하면 아래처럼 교체(예: picsum: 1280x800)
-    const srcLarge = srcSmall.replace(/\/(\d+)\/(\d+)$/, '/1280/800');
-    img.src = srcLarge;
-    img.alt = items[idx].alt || '';
-    cap.textContent = items[idx].dataset.caption || items[idx].alt || '';
-    lb.setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
-  }
-  function hide(){
-    lb.setAttribute('aria-hidden','true');
-    img.src = '';
-    document.body.style.overflow = '';
-  }
-  function prev(){ show(idx-1); }
-  function next(){ show(idx+1); }
-
-  // 썸네일 클릭 → 라이트박스 오픈
-  items.forEach((it, i)=>{
-    it.style.cursor = 'zoom-in';
-    it.addEventListener('click', ()=> show(i));
-  });
-
-  // 버튼/오버레이/ESC로 닫기
-  btnClose.addEventListener('click', hide);
-  lb.addEventListener('click', (e)=>{ if(e.target === lb) hide(); });
-  window.addEventListener('keydown', (e)=>{
-    if(lb.getAttribute('aria-hidden')==='true') return;
-    if(e.key==='Escape') hide();
-    else if(e.key==='ArrowLeft') prev();
-    else if(e.key==='ArrowRight') next();
-  });
-  btnPrev.addEventListener('click', prev);
-  btnNext.addEventListener('click', next);
-
-  // 터치 스와이프(모바일)
-  let sx=0, sy=0;
-  lb.addEventListener('touchstart', (e)=>{ const t=e.touches[0]; sx=t.clientX; sy=t.clientY; }, {passive:true});
-  lb.addEventListener('touchend', (e)=>{
-    const t=e.changedTouches[0]; const dx=t.clientX - sx; const dy=t.clientY - sy;
-    if(Math.abs(dx) > 40 && Math.abs(dy) < 60){ dx>0 ? prev() : next(); }
-  }, {passive:true});
-})();
-</script>
-
 </body>
 </html>
