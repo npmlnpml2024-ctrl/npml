@@ -1,71 +1,45 @@
 /* ==========================================================================
-   about.css — About 전용 (배너와 자연스럽게 연결된 subtabs)
+   about.css — About 전용 (검은 반투명 바 스타일)
    ========================================================================== */
 
-/* 0) 유틸 */
 [hidden]{ display:none !important; }
 
-/* 1) 카드 그리드(비전/장비 공통) */
+/* 카드 그리드 */
 .cards-eq{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 @media (max-width:980px){ .cards-eq{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:640px){ .cards-eq{ grid-template-columns:1fr; } }
 
-/* 2) 앵커 보정 */
-#vision, #research, #equipment{ scroll-margin-top:96px; }
-:target .head h2{ box-shadow: inset 0 -8px 0 rgba(0,74,159,.15); }
+/* 앵커 보정 */
+#vision, #research, #equipment{ scroll-margin-top:100px; }
+:target .head h2{ box-shadow: inset 0 -8px 0 rgba(0,74,159,.2); }
 
-/* 3) 배너 밑 subtabs */
-.subtabs{
-  position: sticky;
-  top:56px; 
+/* 🔥 배너 밑 전체 검은 바 */
+.subtabs-bar{
+  position:sticky;
+  top:56px;
   z-index:60;
 
-  width:100vw;
-  margin-left:calc(50% - 50vw);
-  margin-right:calc(50% - 50vw);
-
-  /* 배너 아래에 딱 붙도록 */
-  margin-top:0;
-  border-top:0;
-  border-bottom:1px solid rgba(229,231,235,.65);
-
-  background:rgba(255,255,255,.50);
-  backdrop-filter:saturate(120%) blur(8px);
-
-  display:grid; 
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  padding:8px 12px;
-  box-shadow:0 -12px 18px -12px rgba(0,0,0,.25) inset;
+  width:100%;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:10px 0;
 }
 
-/* 버튼 */
-.subtabs a{
-  display:flex; align-items:center; justify-content:center;
-  height:44px; padding:0 12px;
-  font-weight:700; color:#0f172a; text-decoration:none;
-  border:1px solid rgba(229,231,235,.9);
-  border-radius:10px;
-  background:rgba(255,255,255,.85);
-  transition:all .15s ease;
-}
-.subtabs a:hover{
-  background:#fff;
-  border-color:var(--brand);
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
-}
-.subtabs a[aria-selected="true"]{
+/* 메뉴 버튼 */
+.subtabs-bar a{
   color:#fff;
-  background:linear-gradient(135deg,var(--brand),#2563eb);
-  border-color:transparent;
-  box-shadow:0 6px 18px rgba(0,74,159,.25);
+  font-weight:700;
+  padding:8px 16px;
+  border-radius:6px;
+  transition:all .2s;
+}
+.subtabs-bar a:hover{ background:rgba(255,255,255,0.15); }
+.subtabs-bar a[aria-selected="true"]{
+  background:var(--brand);
+  color:#fff;
 }
 
-/* 4) wrap 여백 제거 */
-.wrap{ margin-top:0; }
-
-/* 5) 모바일 대응 */
-@media (max-width:700px){
-  .subtabs{ grid-template-columns:1fr; gap:6px; }
-  .subtabs a{ height:auto; line-height:40px; }
-}
+/* wrap 여백 */
+.wrap{ margin-top:20px; }
