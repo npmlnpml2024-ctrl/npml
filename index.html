@@ -183,5 +183,44 @@
       </div>
     </div>
   </footer>
+  <script>
+/* 간단 캐러셀: 버튼(이전/다음)으로 .track을 translateX로 이동 */
+document.querySelectorAll('[data-carousel]').forEach(sec=>{
+  const clip  = sec.querySelector('.clip');
+  const track = sec.querySelector('.track');
+  const prev  = sec.querySelector('[data-prev]');
+  const next  = sec.querySelector('[data-next]');
+  if(!clip || !track || !prev || !next) return;
+
+  const gap = parseFloat(getComputedStyle(track).gap) || 18;
+
+  const cardW = ()=> {
+    const card = track.querySelector('.card');
+    return card ? card.getBoundingClientRect().width + gap : (clip.clientWidth);
+  };
+
+  const visibleCount = ()=> Math.max(1, Math.round((clip.clientWidth + gap) / cardW()));
+  const total = ()=> track.querySelectorAll('.card').length;
+
+  let i = 0; // 현재 첫 카드 인덱스(0부터)
+  function clampIndex(v){
+    const max = Math.max(0, total() - visibleCount());
+    return Math.min(Math.max(v, 0), max);
+  }
+  function update(){
+    i = clampIndex(i);
+    const x = -(i * cardW());
+    track.style.transform = `translateX(${x}px)`;
+  }
+
+  prev.addEventListener('click', ()=>{ i -= 1; update(); });
+  next.addEventListener('click', ()=>{ i += 1; update(); });
+  addEventListener('resize', update);
+
+  // 초기 위치 보정
+  update();
+});
+</script>
+
 </body>
 </html>
