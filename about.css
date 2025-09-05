@@ -69,3 +69,33 @@
   line-height:1.6;
 }
 
+/* === Equipment 게시판 === */
+.eq-search input{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:8px 12px;
+  min-width:220px;
+}
+
+.eq-board{ margin-top:12px; }
+.eq-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+@media (max-width:980px){ .eq-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px){ .eq-grid{ grid-template-columns:1fr; } }
+
+.eq-card{
+  background:#fff; border:1px solid var(--border); border-radius:12px; overflow:hidden;
+  display:flex; flex-direction:column; transition:transform .15s ease, box-shadow .15s ease;
+}
+.eq-card:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.06); }
+
+.eq-thumb{ aspect-ratio:4/3; background:#f8fafc; display:block; margin:0; }
+.eq-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+.eq-body{ padding:12px 14px; }
+.eq-title{ font-weight:700; margin:0 0 6px; }
+.eq-meta{ color:var(--muted); font-size:13px; margin:0; }
+
