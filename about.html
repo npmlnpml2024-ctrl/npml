@@ -137,5 +137,28 @@
     window.addEventListener('hashchange', ()=> activate(location.hash));
   })();
   </script>
+  <script>
+  // 장비 검색 (클라이언트 필터)
+  (function(){
+    const input = document.getElementById('eqSearch');
+    const cards = Array.from(document.querySelectorAll('.eq-card'));
+    if(!input || !cards.length) return;
+
+    function norm(s){ return (s||'').toLowerCase().replace(/\s+/g,' ').trim(); }
+
+    input.addEventListener('input', function(){
+      const q = norm(this.value);
+      cards.forEach(card=>{
+        const hay = norm(
+          card.dataset.keywords + ' ' +
+          card.querySelector('.eq-title')?.textContent + ' ' +
+          card.querySelector('.eq-meta')?.textContent
+        );
+        card.style.display = (!q || hay.includes(q)) ? '' : 'none';
+      });
+    });
+  })();
+</script>
+
 </body>
 </html>
