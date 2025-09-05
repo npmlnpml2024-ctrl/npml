@@ -94,13 +94,56 @@
     </section>
 
     <section id="equipment" class="section">
-      <div class="head"><h2>장비소개</h2></div>
-      <div class="cards-eq">
-        <article class="card"><div class="title">LC–MS 시스템</div><div class="meta">정밀 정량/정성 분석</div></article>
-        <article class="card"><div class="title">NMR</div><div class="meta">구조 동정 · 2D 실험</div></article>
-        <article class="card"><div class="title">Prep HPLC</div><div class="meta">분획/정제 · 수율 개선</div></article>
-      </div>
-    </section>
+  <div class="head">
+    <h2>장비소개</h2>
+    <div class="eq-search">
+      <input id="eqSearch" type="search" placeholder="장비명, 용도 등 검색" aria-label="장비 검색">
+    </div>
+  </div>
+
+  <div class="eq-board">
+    <div class="eq-grid" id="eqGrid">
+      <!-- 예시 카드들: 필요하면 자유롭게 추가/수정 -->
+      <article class="eq-card" data-keywords="lcms lc–ms 질량분석 정량 정성 metabolomics">
+        <figure class="eq-thumb">
+          <img src="https://picsum.photos/seed/lcms/640/480" alt="LC–MS 시스템">
+        </figure>
+        <div class="eq-body">
+          <h3 class="eq-title">LC–MS 시스템</h3>
+          <p class="eq-meta">정밀 정량/정성 · Metabolomics</p>
+        </div>
+      </article>
+
+      <article class="eq-card" data-keywords="nmr 핵자기공명 구조동정 1d 2d">
+        <figure class="eq-thumb">
+          <img src="https://picsum.photos/seed/nmr/640/480" alt="NMR">
+        </figure>
+        <div class="eq-body">
+          <h3 class="eq-title">NMR</h3>
+          <p class="eq-meta">구조 동정 · 1D/2D 실험</p>
+        </div>
+      </article>
+
+      <article class="eq-card" data-keywords="prep hplc 정제 분획 수율 fractionation">
+        <figure class="eq-thumb">
+          <img src="https://picsum.photos/seed/prep/640/480" alt="Prep HPLC">
+        </figure>
+        <div class="eq-body">
+          <h3 class="eq-title">Prep HPLC</h3>
+          <p class="eq-meta">분획/정제 · 수율 개선</p>
+        </div>
+      </article>
+
+      <!-- 더 추가 가능 -->
+      <!--
+      <article class="eq-card" data-keywords="gcms gc–ms 휘발성 성분 voc ims">
+        ...
+      </article>
+      -->
+    </div>
+  </div>
+</section>
+
   </div>
 
   <!-- Footer -->
