@@ -43,3 +43,29 @@
 
 /* wrap 여백 */
 .wrap{ margin-top:20px; }
+
+/* Vision 인용구 스타일 */
+.vision-quote{
+  text-align:center;
+  padding:60px 20px;
+  font-family:Montserrat, "Noto Sans KR", sans-serif;
+  position:relative;
+}
+.vision-quote .quote-mark{
+  font-size:60px;
+  color:var(--brand);
+  line-height:1;
+  margin-bottom:10px;
+}
+.vision-quote h2{
+  font-size:32px;
+  font-weight:700;
+  color:#0f172a;
+}
+.vision-quote p{
+  margin-top:16px;
+  font-size:18px;
+  color:#475569;
+  line-height:1.6;
+}
+
